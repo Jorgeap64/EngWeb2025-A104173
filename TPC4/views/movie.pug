@@ -1,0 +1,28 @@
+extends layout
+
+block content
+    .w3-card-4 
+        header.w3-container.w3-black 
+            h1= title
+        .w3-container
+            table.w3-table-all
+                tr.w3-large
+                    th Ano: 
+                    th Titulo: 
+                    th Elenco: 
+                    th Generos:
+                tr 
+                    td=filme.year
+                    td=filme.title
+                    td
+                        ul.w3-ul 
+                            each actor in filme.cast
+                                a( href=`/actors/${ actor }` )
+                                    li=actor 
+                    td
+                        ul.w3-ul 
+                            each genero in filme.genres
+                                li=genero 
+                    tr
+                        td( colspan='4' )
+                            a( href="/movies" ).w3-button.w3-black.w3-btn.w3-round-xxlarge(style='margin-top: 10px').w3-left Back

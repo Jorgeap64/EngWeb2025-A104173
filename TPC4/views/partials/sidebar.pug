@@ -1,0 +1,17 @@
+aside.sidebar.w3-sidebar.w3-bar-block.w3-black.w3-card#mySidebar(style="width:200px;display:none;")
+    ul.w3-ul
+        li 
+            button.w3-bar-item.w3-button(onclick="w3_close()") 
+                | ☰ 
+        li
+            a.w3-bar-item.w3-button(href="/") 
+                | Home
+        li
+            a.w3-bar-item.w3-button(href="/movies") 
+                | Movies
+
+script.
+    function w3_close() {
+        document.getElementById("mySidebar").style.display = "none";
+    }
+
