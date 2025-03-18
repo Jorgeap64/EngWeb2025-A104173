@@ -1,4 +1,4 @@
-export function studentsListPage (slist, d) {
+function studentsListPage(slist,d){
     var pagHTML = `
     <!DOCTYPE html>
     <html>
@@ -34,7 +34,7 @@ export function studentsListPage (slist, d) {
                             ${slist[i].nome}
                         </a>
                     </td>
-                    <td>${slist[i].gitlink}</td>
+                    <td>${slist[i].git}</td>
                     <td>
                         [<a href="/alunos/edit/${slist[i].id}">Edit</a>][<a href="/alunos/delete/${slist[i].id}">Delete</a>]
                     </td>
@@ -55,8 +55,9 @@ export function studentsListPage (slist, d) {
     return pagHTML
 }
 
+export { studentsListPage }
 
-export function studentFormPage( d ) {
+function studentFormPage(d){
     return `
     <!DOCTYPE html>
     <html>
@@ -76,11 +77,11 @@ export function studentFormPage( d ) {
                     <fieldset>
                         <legend>Metadata</legend>
                         <label>Id</label>
-                        <input class="w3-input w3-round" type="text" name="id"/>
+                        <input required="required" class="w3-input w3-round" type="text" name="id"/>
                         <label>Name</label>
-                        <input class="w3-input w3-round" type="text" name="nome"/>
+                        <input required="required" class="w3-input w3-round" type="text" name="nome"/>
                         <label>Git</label>
-                        <input class="w3-input w3-round" type="text" name="gitlink"/>
+                        <input required="required" class="w3-input w3-round" type="text" name="gitlink"/>
                     </fieldset>
 
                     <fieldset>
@@ -114,7 +115,9 @@ export function studentFormPage( d ) {
     `
 }
 
-export function studentFormEditPage( a, d ) {
+export { studentFormPage }
+
+function studentFormEditPage(a,d){
     var pagHTML = `
     <!DOCTYPE html>
     <html>
@@ -138,14 +141,14 @@ export function studentFormEditPage( a, d ) {
                         <label>Name</label>
                         <input class="w3-input w3-round" type="text" name="nome" value="${a.nome}"/>
                         <label>Git</label>
-                        <input class="w3-input w3-round" type="text" name="gitlink" value="${a.gitlink}"/>
+                        <input class="w3-input w3-round" type="text" name="gitlink" value="${a.git}"/>
                     </fieldset>
 
                     <fieldset>
                         <legend>TPC</legend>
                     `
 
-    for(i=1; i < 9; i++){
+    for(let i=1; i < 9; i++){
         var tpc = "tpc" + i
         if(tpc in a){
             pagHTML += `<input class="w3-check" type="checkbox" name="tpc${i}" value="1" checked/>
@@ -158,7 +161,6 @@ export function studentFormEditPage( a, d ) {
                         `
         }
     }                
-
     pagHTML += `
                     </fieldset>  
                     <br/>
@@ -174,13 +176,13 @@ export function studentFormEditPage( a, d ) {
     return pagHTML
 }
 
-// ---------------Student's Page--------------------------------
-// Change and adapt to current dataset...
-export function studentPage( aluno, d ){
+export { studentFormEditPage }
+
+function studentPage(aluno,d){
     var pagHTML = `
     <html>
     <head>
-        <title>Aluno: ${aluno.Id}</title>
+        <title>Aluno: ${aluno.id}</title>
         <meta charset="utf-8"/>
         <link rel="icon" href="favicon.png"/>
         <link rel="stylesheet" href="w3.css"/>
@@ -195,22 +197,20 @@ export function studentPage( aluno, d ){
                 <ul class="w3-ul w3-card-4" style="width:50%">
                     <li><b>Nome: </b> ${aluno.nome}</li>
                     <li><b>Número: </b> ${aluno.id}</li>
-                    <li><b>Git (link): </b> <a href="${aluno.gitlink}">${aluno.gitlink}</a></li>
+                    <li><b>Git (link): </b> <a href="${aluno.git}">${aluno.git}</a></li>
                 </ul>
             </div>
             <div class="w3-container w3-margin-8">
                 <ul class="w3-ul">
             `
             for(let i=1; i < 9; i++){
-                key = `tpc${i}`
+                let key = `tpc${i}`
                 if(key in aluno){
                     pagHTML += `
                         <li><b>TPC${i}</b></li>
                     `
                 }
             }
-    
-
     pagHTML +=     `</ul></div>
             <footer class="w3-container w3-teal">
                 <address>Gerado por galuno::RPCW2022 em ${d} - [<a href="/">Voltar</a>]</address>
@@ -222,9 +222,14 @@ export function studentPage( aluno, d ){
     return pagHTML
 }
 
-// -------------- Error Treatment ------------------------------
-export function errorPage( errorMessage, d ){
+export { studentPage }
+
+// -------------- error treatment ------------------------------
+
+function errorPage(errorMessage,d){
     return `
     <p>${d}: Error: ${errorMessage}</p>
     `
 }
+
+export { errorPage }
