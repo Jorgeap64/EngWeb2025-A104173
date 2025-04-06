@@ -1,0 +1,17 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel="icon", href="/images/favicon.png")
+    meta( charset='utf-8' )
+    style.
+        body, h1, h2, h3, h4, h5, h6 {
+            font-family: "Times New Roman", Times, serif;
+        }
+  body
+    include partials/header
+    
+    block content
+
+    include partials/footer

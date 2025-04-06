@@ -1,0 +1,43 @@
+extends layout
+
+block content
+    .w3-card-4 
+        header.w3-container.w3-black 
+            h1= title
+        
+        .w3-container 
+            h2 Informações do Contrato
+
+            table.w3-table-all
+                tr 
+                    th Id 
+                    td= contrato._id 
+                tr 
+                    th Tipo Procedimento 
+                    td= contrato.tipoprocedimento 
+                tr 
+                    th Objecto 
+                    td= contrato.objectoContrato
+                tr 
+                    th Data Publicação
+                    td= contrato.dataPublicacao 
+                tr 
+                    th Data Celebração 
+                    td= contrato.dataCelebracaoContrato 
+                tr 
+                    th Preço Contratual 
+                    td= contrato.precoContratual 
+                tr 
+                    th Prazo Execução
+                    td= contrato.prazoExecucao 
+                tr 
+                    th NIPC Entidade Comunicante 
+                    td= contrato.NIPC_entidade_comunicante 
+                tr 
+                    th Entidade Comunicante 
+                    td= contrato.entidade_comunicante 
+                tr 
+                    th Fundamentação
+                    td= contrato.fundamentacao 
+            h3 
+                a(href="/") Voltar

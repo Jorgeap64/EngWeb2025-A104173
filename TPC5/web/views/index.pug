@@ -1,0 +1,32 @@
+extends layout
+
+block content
+    header.w3-container.w3-black 
+        h1.w3-center= title
+
+    body.w3-black
+        div.w3-container.w3-padding-64.w3-center
+            h2 Dados da Interface
+            p.w3-p Esta interface foi desenvolvida durante uma aula de Engenharia Web do ano letivo 2024/2025.
+
+        div.w3-container 
+            h3 Tabela de Contratos 
+            table.w3-table-all.w3-text-black
+                tr 
+                    th ID  
+                    th Objecto
+                    th Data Celebração
+                    th Preço Contratual 
+                    th NIPC Entidade Comunicante 
+                    th Entidade Comunicante 
+
+                each contrato in contratos
+                    tr 
+                        td 
+                            a(href="/" + contrato._id)= contrato._id 
+                        td= contrato.objectoContrato 
+                        td= contrato.dataCelebracaoContrato 
+                        td= contrato.precoContratual 
+                        td
+                            a(href="/entidades/" + contrato.NIPC_entidade_comunicante)= contrato.NIPC_entidade_comunicante 
+                        td= contrato.entidade_comunicante
