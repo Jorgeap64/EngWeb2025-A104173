@@ -1,0 +1,31 @@
+extends layout
+
+block content
+    // Registration form section
+    div(class='w3-container w3-padding')
+        // Center container
+        div(class='w3-display-middle w3-card-4 w3-light-grey w3-padding w3-col l6 m8 s12')
+            h2= subtitle
+
+            form(id='registerForm', action='/register', method='POST')
+                label(for='name') Name:
+                input(type='name', id='name', name='name', required=true, class='w3-input w3-border')
+
+                label(for='username') Username:
+                input(type='username', id='username', name='username', required=true, class='w3-input w3-border')
+
+                label(for='email') Email:
+                input(type='email', id='email', name='email', required=true, class='w3-input w3-border')
+
+                label(for='password') Password:
+                input(type='password', id='password', name='password', required=true, class='w3-input w3-border')
+
+                label(for='confirmPassword') Confirm Password:
+                input(type='password', id='confirmPassword', name='confirmPassword', required=true, class='w3-input w3-border')
+
+                // Add margins
+                button(type='submit', class='w3-button w3-black w3-block w3-margin-top w3-margin-bottom') Register
+
+            // Error message display
+            div(class='w3-text-red w3-center')
+                p= errorMessage

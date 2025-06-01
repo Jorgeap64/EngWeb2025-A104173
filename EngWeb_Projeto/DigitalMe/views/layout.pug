@@ -1,0 +1,47 @@
+doctype html
+html
+  head
+    title= title
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    link(rel='stylesheet', href='/stylesheets/w3.css')
+    link(rel='icon', href='/DigitalMeLogo.ico')
+    script(src="/javascripts/display.js")
+    script(src='https://cdnjs.cloudflare.com/ajax/libs/jszip/3.10.1/jszip.min.js')
+  body
+    // Header section
+    header(class='w3-container w3-black w3-padding')
+      div(class='w3-row')
+        // Logo on the left
+        div(class='w3-col s6')
+          a(href='/')
+            img(src='/images/DigitalMeLogo.png', alt='Logo', class='w3-image', style='max-width: 150px;')
+        
+        // Conditionally render Register and Login buttons
+        div(class='w3-col s6 w3-right-align')
+            if register
+              a(href='/register', class='w3-button w3-orange w3-text-white')=register
+            if login
+              a(href='/login', class='w3-button w3-green')=login
+            if dashboard
+              a(href='/dashboard', class='w3-button w3-orange w3-text-white')=dashboard
+            if adminDashboard
+              a(href='/adminDashboard', class='w3-button w3-orange w3-text-white')=adminDashboard
+            if allUsers
+              a(href='/adminUsers', class='w3-button w3-orange w3-text-white')=allUsers
+            if logout
+              a(href='/logout', class='w3-button w3-red')=logout
+    
+    if admin
+      .w3-margin-top
+        .w3-half
+          .w3-card.w3-container.w3-light-grey.w3-padding.w3-center
+            h3 Number of Users
+            p.w3-xlarge #{numUsers}
+        .w3-half
+          .w3-card.w3-container.w3-light-grey.w3-padding.w3-center
+            h3 Number of Archives
+            p.w3-xlarge #{numArchives}
+
+
+    // Content block  
+    block content

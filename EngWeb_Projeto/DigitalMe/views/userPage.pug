@@ -1,0 +1,37 @@
+extends layout
+
+block content
+  .w3-container
+    .w3-display-container.w3-padding-64
+      .w3-card-4.w3-white.w3-padding.w3-round-large(style="max-width: 600px; margin: auto;")
+        h2.w3-center #{name}'s Profile Edition
+
+        if error
+          p.w3-text-red.w3-center #{error}
+
+        form(action=`/adminUsers/edit/${userID}` method="POST" class="w3-container")
+          .w3-margin-bottom
+            label(for="username" class="w3-margin-bottom") Username
+            input#username.w3-input.w3-border.w3-round(type="text", name="username", value=username, required)
+
+          .w3-margin-bottom
+            label(for="name" class="w3-margin-bottom") Full Name
+            input#name.w3-input.w3-border.w3-round(type="text", name="name", value=name, required)
+
+          .w3-margin-bottom
+            label(for="email" class="w3-margin-bottom") Email
+            input#email.w3-input.w3-border.w3-round(type="email", name="email", value=email, required)
+
+          .w3-margin-bottom(style="display: flex; align-items: center; gap: 10px;")
+            label(style="margin: 0;") Creation Date:
+            span #{new Date(creationDate).toLocaleDateString()}
+
+
+
+          .w3-center
+            button.w3-button.w3-blue.w3-round-large(type="submit") Save Changes
+
+        hr
+
+        .w3-center
+          a(href="/adminUsers") &larr; #{adminUsers}

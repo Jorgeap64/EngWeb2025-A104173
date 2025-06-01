@@ -1,0 +1,95 @@
+extends layout
+
+block content
+  .w3-margin-bottom
+    .w3-row(style="display: flex; justify-content: center; align-items: center;")
+      .w3-half
+        h2
+          b Welcome to #{title} Public Archives
+      if selectCategories !== 0
+        .w3-half(style="text-align: right;")
+          form(method="GET", action="/", style="text-align: right;")
+            select#categorySelect.w3-select.w3-border(name="category" style="max-width: 200px;" onchange="this.form.submit()")
+              option(value="") All Categories
+              each category in selectCategories
+                option(value=category selected=(category === selectedCategory))= category
+
+
+  if !archives || archives.length === 0
+    div(class='w3-center w3-padding w3-margin-top')
+      h1 There are no public archives yet.
+  else
+    .w3-container.w3-margin-top
+      .w3-row-padding.w3-margin-top
+        each archive, i in archives
+          // Start a new row every 3 items
+          if i % 3 === 0 && i !== 0
+            .w3-row-padding
+
+          .w3-third
+            .w3-card-4.w3-margin-bottom
+              .w3-container
+                h3 
+                  i #{archive.originalName}.#{archive.mimetype}
+                // Conditional image rendering
+                if archive.mimetype === 'pdf'
+                  .w3-center
+                    img.w3-image.w3-margin-bottom(src='/images/pdf.png', alt='PDF icon', style='max-height: 150px;')
+                else if archive.mimetype === 'png'
+                  .w3-center
+                    img.w3-image.w3-margin-bottom(src='/images/png.png', alt='PDF icon', style='max-height: 150px;')
+                else if archive.mimetype === 'json'
+                  .w3-center
+                    img.w3-image.w3-margin-bottom(src='/images/json.png', alt='PDF icon', style='max-height: 150px;')
+                else
+                  .w3-center
+                    img.w3-image.w3-margin-bottom(src=`/images/default.png`, alt='Default icon', style='max-height: 150px;')
+                p
+                  b Category:
+                  |  #{archive.category}
+                p
+                  b Sender:
+                  |  #{archive.sender_id}
+                p
+                  b Submitted at:
+                  |  #{new Date(archive.submission_date).toLocaleString()}
+                p
+                  b Producer:
+                  |  #{archive.producer_id}
+                p
+                  b Created at:
+                  |  #{new Date(archive.creation_date).toLocaleDateString()}
+                button.w3-button.w3-blue.w3-margin-bottom(type="button",onclick="viewArchive(this)",data-content=archive.content,data-mimetype=archive.mimetype) View Archive
+                button.w3-button.w3-green.w3-margin-bottom(type="button",onclick="downloadArchive(this)",data-id=archive._id) Download Archive
+
+
+      .w3-center.w3-margin-top
+        - const isFirstPage = pageNum <= 1;
+        - const isLastPage = pageNum >= totalPages;
+        - const prevPage = isFirstPage ? 1 : pageNum - 1;
+        - const nextPage = isLastPage ? totalPages : pageNum + 1;
+        - const categoryParam = selectedCategory ? `&category=${selectedCategory}` : '';
+
+        a.w3-button.w3-light-grey(
+          href=isFirstPage ? 'javascript:void(0)' : `/?pageNum=${prevPage}${categoryParam}`,
+          class=isFirstPage ? 'w3-disabled' : ''
+        ) &#8592; Previous
+
+        span#pageIndicator(style="margin: 0 10px;") Page #{pageNum || 1} of #{totalPages || 1}
+
+        a.w3-button.w3-light-grey(
+          href=isLastPage ? 'javascript:void(0)' : `/?pageNum=${nextPage}${categoryParam}`,
+          class=isLastPage ? 'w3-disabled' : ''
+        ) Next &#8594;
+
+        //- Archive Preview Modal
+        div#archiveModal.w3-modal(style="display:none")
+          div.w3-modal-content.w3-animate-top.w3-card-4
+            header.w3-container.w3-blue
+              span.w3-button.w3-display-topright(onclick="closeModal()") X
+              h2 Archive Preview
+
+            div.w3-container
+              // Image or PDF will be inserted here dynamically
+              div#archiveContent
+

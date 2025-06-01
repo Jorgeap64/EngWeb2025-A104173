@@ -1,0 +1,2 @@
+b1d4cb0d13cb1d9ab509ff9048c4f8d9720bf73ec5856320b1c8ed8c81cd61e1 bagit.txt
+cec86f0a4879215ee1ed3f8499d89cf534d8f0dbe734cc080e62ae0cf1336f66 manifesto-SIP.xml

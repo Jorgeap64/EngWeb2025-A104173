@@ -1,0 +1,66 @@
+extends layout
+
+block content
+  h1 All users
+
+  .w3-margin-bottom
+    button.w3-button.w3-green(onclick="document.getElementById('registerModal').style.display='block'") + Register New User
+
+  if users && users.length
+    table.w3-table.w3-striped.w3-bordered(style="width:100%")
+      thead
+        tr
+          th Username
+          th Name
+          th Email
+          th Created At
+          th Actions
+      tbody
+        each user in users
+          tr
+            td #{user.username}
+            td #{user.name}
+            td #{user.email}
+            td #{new Date(user.creationDate).toLocaleDateString()}
+            td
+              a.w3-button.w3-small.w3-blue(href=`/adminUsers/view/${user._id}`) Edit
+              a.w3-button.w3-small.w3-red(href=`/adminUsers/delete/${user._id}` onclick="return confirm('Are you sure you want to delete this user?');") Delete
+  else
+    p No users found.
+
+  // Modal for registration
+  #registerModal.w3-modal
+    .w3-modal-content.w3-animate-top.w3-card-4(style="max-width:500px")
+      .w3-container.w3-padding
+        span.w3-button.w3-display-topright(title="Close" onclick="document.getElementById('registerModal').style.display='none'") ×
+        h2 Register New User
+
+        form(action="/adminUsers/register", method="POST" class="w3-container")
+          .w3-margin-bottom
+            label(for="username") Username
+            input.w3-input.w3-border(type="text", name="username", required)
+
+          .w3-margin-bottom
+            label(for="name") Full Name
+            input.w3-input.w3-border(type="text", name="name", required)
+
+          .w3-margin-bottom
+            label(for="email") Email
+            input.w3-input.w3-border(type="email", name="email", required)
+
+          .w3-margin-bottom
+            label(for="password") Password
+            input.w3-input.w3-border(type="password", name="password", required)
+
+          .w3-margin-bottom
+            label(for="confirmPassword") Confirm Password
+            input.w3-input.w3-border(type="password", name="confirmPassword", required)
+
+          .w3-margin-bottom
+            label
+              input(type="checkbox", name="admin")
+              |  Grant Admin Permission
+
+          .w3-margin-top
+            button.w3-button.w3-blue.w3-round(type="submit") Register
+
